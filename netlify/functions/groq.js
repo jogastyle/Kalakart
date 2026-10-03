@@ -14,8 +14,7 @@ exports.handler = async (event) => {
       };
     }
 
-    const prompt = "Ek Indian handicraft product ke liye 2-3 line ka attractive Hindi description likho. Product: " + name + ", Category: " + category + ". Sirf description likho.";
-
+    const prompt = "Write a short, attractive 2 line product description in English for an Indian handicraft product. Product name: " + name + ", Category: " + category + ". Write only the description, no heading, no extra text. Keep it warm and appealing.";
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
