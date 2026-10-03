@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalakart — Handmade Handicrafts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fffaf4;--surface:#fff;--surface-2:#fdf3e7;--text:#2b1c10;--muted:#85705e;--primary:#c2410c;--primary-2:#9a3412;--accent:#d97706;--gold:#f59e0b;--green:#15803d;--red:#dc2626;--border:#f0e2d2;--ring:rgba(194,65,12,.25);--shadow:0 12px 32px rgba(120,70,30,.1);--shadow-lg:0 24px 60px rgba(120,70,30,.16);--radius:18px}
+html[data-theme="dark"]{--bg:#13100c;--surface:#1d1811;--surface-2:#241d14;--text:#f7efe4;--muted:#a9977f;--border:#34291d;--primary:#f97316;--primary-2:#ea580c;--accent:#fbbf24;--shadow:0 12px 32px rgba(0,0,0,.45);--shadow-lg:0 24px 60px rgba(0,0,0,.6);--ring:rgba(249,115,22,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+h1,h2,h3,.brand{font-family:'Playfair Display',serif;line-height:1.2}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes popIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes heartBeat{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.2)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.topbar{background:linear-gradient(90deg,var(--primary-2),var(--primary),var(--accent));color:#fff;font-size:.72rem;padding:7px 0;text-align:center}
+.topbar .wrap{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+header.main{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+header.main.scrolled{box-shadow:var(--shadow)}
+.head-inner{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font-size:1.4rem;font-weight:800}
+.brand .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-size:1.2rem;transition:transform .3s}
+.brand:hover .mark{transform:rotate(-10deg) scale(1.1)}
+.brand b{color:var(--primary)}
+.brand small{display:block;font-family:'Poppins';font-size:.5rem;letter-spacing:.2em;color:var(--muted);font-weight:600;margin-top:-2px}
+.searchbar{flex:1;min-width:180px;position:relative}
+.searchbar input{width:100%;padding:10px 40px;border-radius:50px;border:1.5px solid var(--border);background:var(--surface-2);outline:none;font-size:.85rem;transition:.2s}
+.searchbar input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
+.searchbar .s-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+.head-actions{display:flex;gap:4px;margin-left:auto}
+.icon-btn{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:1.1rem;position:relative;transition:.2s}
+.icon-btn:hover{background:var(--surface-2);transform:translateY(-2px)}
+.badge{position:absolute;top:0;right:0;min-width:18px;height:18px;padding:0 5px;background:var(--primary);color:#fff;border-radius:20px;font-size:.6rem;font-weight:700;display:grid;place-items:center;border:2px solid var(--surface);transition:transform .3s}
+.badge.bump{animation:heartBeat .6s}
+.badge[data-n="0"]{display:none}
+.catnav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:63px;z-index:40}
+.catnav .wrap{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;scrollbar-width:none}
+.catnav .wrap::-webkit-scrollbar{display:none}
+.chip{padding:7px 16px;border-radius:50px;font-size:.8rem;font-weight:500;white-space:nowrap;border:1.5px solid var(--border);color:var(--muted);transition:.25s}
+.chip:hover{border-color:var(--primary);color:var(--primary)}
+.chip.active{background:var(--primary);border-color:var(--primary);color:#fff;transform:scale(1.05)}
+.hero{background:radial-gradient(800px 380px at 88% -10%,rgba(217,119,6,.18),transparent 60%),radial-gradient(600px 340px at 5% 110%,rgba(194,65,12,.14),transparent 60%);padding:50px 0;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);background:var(--surface-2);border:1px solid var(--border);padding:6px 14px;border-radius:50px;margin-bottom:16px;animation:fadeUp .6s backwards}
+.hero h1{font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;margin-bottom:14px;animation:fadeUp .6s .1s backwards}
+.hero h1 em{font-style:normal;color:var(--primary);position:relative;white-space:nowrap}
+.hero h1 em::after{content:'';position:absolute;left:0;right:0;bottom:5px;height:8px;background:var(--gold);opacity:.28;border-radius:6px;z-index:-1}
+.hero p.lead{font-size:.95rem;color:var(--muted);max-width:500px;margin-bottom:24px;animation:fadeUp .6s .2s backwards}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;animation:fadeUp .6s .3s backwards}
+.hero-art{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.art-card{border-radius:22px;aspect-ratio:1/1.05;display:grid;place-items:center;font-size:clamp(2.4rem,6vw,3.6rem);box-shadow:var(--shadow);border:1px solid var(--border);transition:transform .5s;animation:popIn .6s backwards}
+.art-card:nth-child(1){background:linear-gradient(150deg,#fde68a,#f59e0b);transform:translateY(-14px);animation-delay:.1s}
+.art-card:nth-child(2){background:linear-gradient(150deg,#fecdd3,#f43f5e);margin-top:26px;animation-delay:.2s}
+.art-card:nth-child(3){background:linear-gradient(150deg,#bbf7d0,#16a34a);animation-delay:.3s}
+.art-card:nth-child(4){background:linear-gradient(150deg,#c7d2fe,#6366f1);transform:translateY(-14px);animation-delay:.4s}
+.art-card:hover{transform:translateY(-10px) scale(1.05) rotate(2deg)!important;box-shadow:var(--shadow-lg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:50px;font-weight:600;font-size:.85rem;transition:.25s;border:1.5px solid transparent;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 8px 22px var(--ring)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px var(--ring)}
+.btn-primary:active{transform:translateY(0) scale(.97)}
+.btn-ghost{border-color:var(--border);background:var(--surface)}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+.btn-block{width:100%}
+.btn-sm{padding:8px 16px;font-size:.78rem}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.section{padding:50px 0}
+.sec-head{margin-bottom:28px}
+.sec-head .line{width:50px;height:4px;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:4px;margin-bottom:12px}
+.sec-head h2{font-size:clamp(1.4rem,3vw,1.9rem)}
+.sec-head p{color:var(--muted);font-size:.85rem;margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .4s cubic-bezier(.2,.8,.3,1),box-shadow .4s;display:flex;flex-direction:column;position:relative;animation:fadeUp .5s backwards}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.card-media{aspect-ratio:1/1;display:grid;place-items:center;position:relative;cursor:pointer;overflow:hidden;font-size:3.6rem}
+.card-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .6s cubic-bezier(.2,.8,.3,1)}
+.card:hover .card-media img{transform:scale(1.15)}
+.card-media .em{position:relative;z-index:1;filter:drop-shadow(0 8px 14px rgba(0,0,0,.15));transition:transform .5s cubic-bezier(.2,.8,.3,1)}
+.card:hover .card-media .em{transform:scale(1.15) rotate(-6deg)}
+.tagpill{position:absolute;top:10px;left:10px;background:var(--primary);color:#fff;font-size:.6rem;font-weight:700;padding:4px 10px;border-radius:50px;letter-spacing:.05em;text-transform:uppercase;z-index:2}
+.tagpill.green{background:var(--green)}
+.tagpill.dark{background:#1f2937}
+.wish-btn{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;font-size:.95rem;z-index:2;transition:.25s;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.wish-btn:hover{transform:scale(1.15)}
+.wish-btn.on{background:#fee2e2;animation:heartBeat .6s}
+.card-body{padding:12px 14px 14px;display:flex;flex-direction:column;flex:1;gap:5px}
+.card-cat{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.card-title{font-family:'Poppins';font-size:.85rem;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.3em}
+.stars{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--muted)}
+.stars .s{color:var(--gold);letter-spacing:-1px;font-size:.8rem}
+.price-row{display:flex;align-items:baseline;gap:6px;margin-top:2px}
+.price{font-size:1.05rem;font-weight:700;color:var(--primary)}
+.mrp{font-size:.75rem;color:var(--muted);text-decoration:line-through}
+.off{font-size:.68rem;font-weight:700;color:var(--green)}
+.card .btn-add{margin-top:auto;padding:9px;border-radius:11px;font-size:.78rem;font-weight:600;background:var(--surface-2);border:1.5px solid var(--border);transition:.25s}
+.card .btn-add:hover{background:var(--primary);border-color:var(--primary);color:#fff;transform:translateY(-2px)}
+.card .btn-add:active{transform:scale(.96)}
+.card .btn-add.in{background:var(--green);border-color:var(--green);color:#fff}
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+.empty .big{font-size:3rem;margin-bottom:12px;opacity:.6;animation:float 3s ease-in-out infinite}
+.overlay{position:fixed;inset:0;background:rgba(30,18,8,.55);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.3s;z-index:90}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100vw);background:var(--surface);z-index:100;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .4s cubic-bezier(.2,.8,.3,1);box-shadow:-20px 0 60px rgba(0,0,0,.22)}
+.drawer.show{transform:none}
+.drawer-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+.drawer-head h3{font-size:1.05rem}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 20px}
+.drawer-foot{border-top:1px solid var(--border);padding:16px 20px 20px;flex-shrink:0;background:var(--surface-2)}
+.cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);animation:slideIn .35s backwards}
+.cart-item:last-child{border-bottom:none}
+.ci-img{width:66px;height:66px;border-radius:12px;display:grid;place-items:center;font-size:1.8rem;flex-shrink:0;overflow:hidden;position:relative;cursor:pointer;transition:transform .3s}
+.ci-img:hover{transform:scale(1.08)}
+.ci-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.ci-info{flex:1;min-width:0}
+.ci-info h5{font-family:'Poppins';font-size:.82rem;font-weight:600;margin-bottom:3px;line-height:1.3}
+.ci-info .ci-price{font-weight:700;color:var(--primary);font-size:.88rem;margin-top:5px}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--border);border-radius:9px;overflow:hidden;margin-top:6px}
+.qty button{width:26px;height:26px;display:grid;place-items:center;font-size:.95rem;color:var(--primary);font-weight:600;transition:.2s}
+.qty button:hover{background:var(--surface-2)}
+.qty button:active{transform:scale(.9)}
+.qty span{min-width:26px;text-align:center;font-size:.8rem;font-weight:600}
+.ci-remove{font-size:.68rem;color:var(--red);font-weight:600;margin-top:5px}
+.ci-remove:hover{text-decoration:underline}
+.ship-bar{margin-bottom:14px}
+.ship-bar p{font-size:.74rem;color:var(--muted);margin-bottom:7px}
+.ship-bar p b{color:var(--green)}
+.ship-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}
+.ship-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .5s;width:0;border-radius:8px}
+.sum-row{display:flex;justify-content:space-between;font-size:.82rem;padding:4px 0;color:var(--muted)}
+.sum-row.total{font-size:1.05rem;font-weight:700;color:var(--text);border-top:1px dashed var(--border);margin-top:8px;padding-top:12px}
+.sum-row.total b{color:var(--primary)}
+.sum-row .free{color:var(--green);font-weight:600}
+/* ============ MODAL ============ */
+.modal{position:fixed;inset:0;z-index:110;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:.3s}
+.modal.show{opacity:1;pointer-events:auto}
+.modal-bg{position:absolute;inset:0;background:rgba(30,18,8,.6);backdrop-filter:blur(6px)}
+.modal-card{position:relative;background:var(--surface);border-radius:22px;width:100%;max-width:900px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:scale(.9) translateY(20px);opacity:0;transition:transform .4s cubic-bezier(.2,.9,.3,1),opacity .3s}
+.modal.show .modal-card{transform:scale(1) translateY(0);opacity:1}
+.modal-card.sm{max-width:440px}
+.modal-card.md{max-width:640px}
+.modal-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;z-index:5;transition:.25s}
+.modal-x:hover{background:var(--primary);color:#fff;transform:rotate(90deg)}
+.pm-grid{display:grid;grid-template-columns:1fr 1fr}
+.pm-media{display:grid;place-items:center;font-size:7rem;min-height:320px;position:relative;overflow:hidden;animation:popIn .5s}
+.pm-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pm-info{padding:34px 30px;animation:fadeUp .5s .1s backwards}
+.pm-info h2{font-size:1.4rem;margin-bottom:10px}
+.pm-price{display:flex;align-items:baseline;gap:10px;margin:14px 0}
+.pm-price .price{font-size:1.6rem}
+.pm-desc{font-size:.85rem;color:var(--muted);margin-bottom:18px;line-height:1.7}
+.pm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.pm-actions .btn{flex:1;min-width:130px}
+.pm-feats{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);font-size:.72rem;color:var(--muted)}
+.form-pad{padding:30px 24px}
+.form-pad h2{font-size:1.35rem;margin-bottom:6px}
+.form-pad .sub{color:var(--muted);font-size:.82rem;margin-bottom:22px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:.74rem;font-weight:600;margin-bottom:6px}
+.field input,.field textarea,.field select{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid var(--border);background:var(--surface-2);outline:none;font-size:.85rem;transition:.2s;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 4px var(--ring)}
+.field .hint{font-size:.68rem;color:var(--muted);margin-top:4px}
+.pay-opts{display:grid;gap:8px;margin-bottom:16px}
+.pay-opt{display:flex;align-items:center;gap:11px;padding:13px 15px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;background:var(--surface-2);transition:.2s}
+.pay-opt.sel{border-color:var(--primary);background:var(--surface);box-shadow:0 0 0 3px var(--ring)}
+.pay-opt:hover{border-color:var(--primary)}
+.pay-opt input{accent-color:var(--primary);width:16px;height:16px}
+.pay-opt .po-ico{font-size:1.2rem}
+.pay-opt strong{display:block;font-size:.83rem;font-weight:600}
+.pay-opt span{font-size:.72rem;color:var(--muted)}
+.order-sum{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:18px}
+.order-sum h4{font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+.success{text-align:center;padding:48px 28px}
+.success .tick{width:76px;height:76px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;font-size:2.2rem;animation:popIn .6s cubic-bezier(.2,1.4,.5,1)}
+.success h2{font-size:1.45rem;margin-bottom:8px}
+.success p{color:var(--muted);font-size:.85rem}
+.success .oid{display:inline-block;background:var(--surface-2);border:1px dashed var(--primary);color:var(--primary);font-weight:700;padding:8px 18px;border-radius:11px;margin:14px 0 22px;font-size:.88rem;letter-spacing:.05em}
+.admin-tabs{display:flex;gap:4px;background:var(--surface-2);padding:4px;border-radius:12px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+.admin-tabs::-webkit-scrollbar{display:none}
+.admin-tabs button{flex:1;padding:9px 14px;border-radius:9px;font-size:.8rem;font-weight:600;color:var(--muted);transition:.2s;white-space:nowrap}
+.admin-tabs button.active{background:var(--surface);color:var(--primary);box-shadow:0 3px 10px rgba(0,0,0,.06)}
+.admin-pane{display:none;animation:fadeUp .3s}
+.admin-pane.active{display:block}
+.a-list{display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto}
+.a-item{display:flex;gap:12px;padding:12px;border:1px solid var(--border);border-radius:12px;align-items:center;background:var(--surface-2);transition:.2s;animation:fadeUp .3s backwards}
+.a-item:hover{border-color:var(--primary);transform:translateX(4px)}
+.a-item .a-img{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;font-size:1.5rem;flex-shrink:0;overflow:hidden;position:relative}
+.a-item .a-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.a-item .a-info{flex:1;min-width:0}
+.a-item .a-info strong{font-size:.83rem;display:block;font-weight:600;line-height:1.3}
+.a-item .a-info span{font-size:.72rem;color:var(--muted)}
+.a-item .a-actions{display:flex;gap:4px;flex-shrink:0}
+.a-item .a-actions button{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:.85rem;background:var(--surface);border:1px solid var(--border);transition:.2s}
+.a-item .a-actions button:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.1)}
+.a-item .a-actions button.del:hover{background:var(--red);border-color:var(--red)}
+.cat-list{display:flex;flex-wrap:wrap;gap:8px}
+.cat-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:50px;background:var(--surface-2);border:1px solid var(--border);font-size:.78rem;font-weight:500;transition:.2s;animation:popIn .3s backwards}
+.cat-pill:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.cat-pill button{color:var(--red);font-weight:700;font-size:.85rem;line-height:1}
+.img-upload{display:flex;align-items:center;gap:10px;padding:10px;border:1.5px dashed var(--border);border-radius:11px;cursor:pointer;transition:.2s;background:var(--surface-2)}
+.img-upload:hover{border-color:var(--primary);background:var(--surface)}
+.img-upload input{display:none}
+.img-preview{width:54px;height:54px;border-radius:10px;object-fit:cover;background:var(--surface);display:grid;place-items:center;font-size:1.4rem;flex-shrink:0;overflow:hidden}
+.img-preview img{width:100%;height:100%;object-fit:cover}
+.ai-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;font-size:.76rem;font-weight:600;transition:.25s;margin-top:6px}
+.ai-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(99,102,241,.35)}
+.ai-btn:active{transform:scale(.97)}
+.ai-btn:disabled{opacity:.6;cursor:wait;transform:none}
+.upi-box{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center;animation:popIn .4s}
+.upi-qr{width:200px;height:200px;margin:0 auto 14px;background:#fff;padding:12px;border-radius:14px;border:1px solid var(--border)}
+.upi-qr img{width:100%;height:100%}
+.upi-id{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);padding:9px 16px;border-radius:10px;font-weight:600;font-size:.85rem;margin-bottom:14px;cursor:pointer;transition:.2s}
+.upi-id:hover{border-color:var(--primary);transform:scale(1.03)}
+.upi-note{font-size:.75rem;color:var(--muted);margin-top:12px;line-height:1.6}
+.toasts{position:fixed;bottom:20px;left:20px;z-index:200;display:flex;flex-direction:column;gap:8px;max-width:calc(100vw - 40px)}
+.toast{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);padding:12px 18px;border-radius:12px;box-shadow:var(--shadow-lg);font-size:.83rem;font-weight:500;display:flex;gap:9px;animation:slideIn .35s cubic-bezier(.2,.9,.3,1);min-width:230px}
+.toast.warn{border-left-color:var(--accent)}
+.toast.err{border-left-color:var(--red)}
+footer{background:var(--surface);border-top:1px solid var(--border);margin-top:50px;padding:30px 0 20px}
+.foot-bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);align-items:center}
+@media(max-width:900px){
+.hero-inner{grid-template-columns:1fr;text-align:center}
+.hero p.lead{margin-inline:auto}
+.hero-cta{justify-content:center}
+.hero-art{max-width:400px;margin:0 auto}
+.pm-grid{grid-template-columns:1fr}
+.pm-media{border-radius:22px 22px 0 0;min-height:220px;font-size:5rem}
+.pm-info{padding:26px 22px}
+}
+@media(max-width:680px){
+.grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
+.card-media{font-size:3rem}
+.card-body{padding:10px 11px 12px}
+.brand{font-size:1.15rem}
+.brand .mark{width:34px;height:34px;font-size:1.05rem}
+.searchbar{order:3;flex-basis:100%}
+.head-inner{padding:10px 0}
+.frow{grid-template-columns:1fr}
+.form-pad{padding:24px 18px}
+.drawer{width:100vw}
+.section{padding:36px 0}
+.toasts{left:12px;right:12px;bottom:12px}
+.toast{min-width:0}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>🚚 ₹999+ par FREE Shipping</span>
+    <span>🎁 Coupon <b>KALA10</b></span>
+    <span>🇮🇳 100% Handmade</span>
+  </div>
+</div>
+
+<header class="main" id="header">
+  <div class="wrap head-inner">
+    <a href="#" class="brand" onclick="goTop(event)">
+      <span class="mark">🪔</span>
+      <span>Kala<b>kart</b><small>Handmade With Love</small></span>
+    </a>
+    <div class="searchbar">
+      <span class="s-ico">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search handicrafts…">
+    </div>
+    <div class="head-actions">
+      <button class="icon-btn" id="themeBtn">🌙</button>
+      <button class="icon-btn" id="wishBtn">❤️<span class="badge" id="wishBadge" data-n="0">0</span></button>
+      <button class="icon-btn" id="cartBtn">🛒<span class="badge" id="cartBadge" data-n="0">0</span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="catnav"><div class="wrap" id="catNav"></div></nav>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">✨ 500+ Artisans • 28 States</span>
+      <h1>Har Haath Ki Kala,<br>Ab <em>Aapke Ghar</em></h1>
+      <p class="lead">Kalakart par milega India ke kone-kone se handpicked handicrafts — mitti ke bartan, handwoven sarees, oxidised jewellery, woodcraft aur bahut kuch. Seedha kaarigaron se.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="scrollToShop()">🛍️ Shop Now</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="art-card">🏺</div>
+      <div class="art-card">🥻</div>
+      <div class="art-card">📿</div>
+      <div class="art-card">🪔</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="line"></div>
+      <h2>Saara Collection</h2>
+      <p>Har piece ek kahani sunata hai</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>© 2025 Kalakart. Made with ❤️ in India.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="drawer" id="cart">
+  <div class="drawer-head">
+    <h3>🛒 Your Cart <span id="cartCount">(0)</span></h3>
+    <button class="icon-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="ship-bar">
+      <p id="shipMsg"></p>
+      <div class="ship-track"><div class="ship-fill" id="shipFill"></div></div>
+    </div>
+    <div class="sum-row"><span>Subtotal</span><span id="sumSub">₹0</span></div>
+    <div class="sum-row"><span>Shipping</span><span id="sumShip">₹0</span></div>
+    <div class="sum-row total"><span>Total</span><b id="sumTotal">₹0</b></div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn" style="margin-top:14px">Checkout →</button>
+  </div>
+</aside>
+
+<aside class="drawer" id="wishDrawer">
+  <div class="drawer-head">
+    <h3>❤️ Your Wishlist <span id="wishCount">(0)</span></h3>
+    <button class="icon-btn" onclick="closeWishDrawer()">✕</button>
+  </div>
+  <div class="drawer-body" id="wishBody"></div>
+</aside>
+
+<div class="modal" id="productModal">
+  <div class="modal-bg" onclick="closeModals()"></div>
+  <div class="modal-card">
+    <button class="modal-x" onclick="closeModals()">✕</button>
+    <div id="pmContent"></div>
+  </div>
+</div>
+
+<div class="modal" id="checkoutModal">
+  <div class="modal-bg" onclick="closeModals()"></div>
+  <div class="modal-card md">
+    <button class="modal-x" onclick="closeModals()">✕</button>
+    <div id="checkoutContent"></div>
+  </div>
+</div>
+
+<div class="modal" id="adminModal">
+  <div class="modal-bg" onclick="closeModals()"></div>
+  <div class="modal-card">
+    <button class="modal-x" onclick="closeModals()">✕</button>
+    <div id="adminContent"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<script>
+/* ================= DEFAULT DATA ================= */
+const DEFAULT_CATS = [
+  { id:'pottery',  name:'Pottery',    emoji:'🏺', g1:'#fde68a', g2:'#f59e0b' },
+  { id:'textiles', name:'Textiles',   emoji:'🧵', g1:'#fecdd3', g2:'#f43f5e' },
+  { id:'jewelry',  name:'Jewellery',  emoji:'💎', g1:'#e9d5ff', g2:'#a855f7' },
+  { id:'wood',     name:'Woodcraft',  emoji:'🪵', g1:'#fed7aa', g2:'#c2410c' },
+  { id:'painting', name:'Paintings',  emoji:'🎨', g1:'#bfdbfe', g2:'#3b82f6' },
+  { id:'decor',    name:'Home Decor', emoji:'🪔', g1:'#bbf7d0', g2:'#16a34a' }
+];
+
+const DEFAULT_PRODUCTS = [
+  { id:1,  name:'Terracotta Handpainted Vase',   cat:'pottery',  price:899,  mrp:1499, rating:4.6, reviews:214, emoji:'🏺', tag:'Bestseller', tagType:'',      desc:'Rajasthan ki mitti se bana, haath se painted terracotta vase.', img:'' },
+  { id:2,  name:'Blue Pottery Decorative Plate', cat:'pottery',  price:1249, mrp:1999, rating:4.7, reviews:168, emoji:'🍽️', tag:'',           tagType:'',      desc:'Jaipur ki famous blue pottery.', img:'' },
+  { id:3,  name:'Madhubani Painting (A3 Frame)', cat:'painting', price:1599, mrp:2499, rating:4.8, reviews:302, emoji:'🎨', tag:'Bestseller', tagType:'',      desc:'Bihar ki Madhubani art, natural colors se haath se banayi gayi.', img:'' },
+  { id:4,  name:'Warli Art Canvas Painting',     cat:'painting', price:1899, mrp:2999, rating:4.5, reviews:96,  emoji:'🖼️', tag:'',           tagType:'',      desc:'Maharashtra ke Warli tribe ki traditional art.', img:'' },
+  { id:5,  name:'Handwoven Banarasi Silk Saree', cat:'textiles', price:4999, mrp:8999, rating:4.9, reviews:421, emoji:'🥻', tag:'Premium',    tagType:'dark',  desc:'Varanasi ke kaarigaron ka 3 mahine ka mehnat.', img:'' },
+  { id:6,  name:'Block Print Cotton Bedsheet',   cat:'textiles', price:1499, mrp:2499, rating:4.4, reviews:189, emoji:'🛏️', tag:'',           tagType:'',      desc:'Rajasthan ka traditional hand block print.', img:'' },
+  { id:7,  name:'Oxidised Silver Necklace',      cat:'jewelry',  price:1099, mrp:1799, rating:4.6, reviews:245, emoji:'📿', tag:'',           tagType:'',      desc:'Rajasthani oxidised silver necklace.', img:'' },
+  { id:8,  name:'Meenakari Jhumka Earrings',     cat:'jewelry',  price:749,  mrp:1299, rating:4.5, reviews:312, emoji:'💎', tag:'Bestseller', tagType:'',      desc:'Jaipuri Meenakari work wale jhumke.', img:'' },
+  { id:9,  name:'Handcarved Wooden Elephant',    cat:'wood',     price:1299, mrp:2099, rating:4.7, reviews:134, emoji:'🐘', tag:'',           tagType:'',      desc:'Sheesham wood se hand-carved elephant.', img:'' },
+  { id:10, name:'Sheesham Wood Jewellery Box',   cat:'wood',     price:1699, mrp:2699, rating:4.6, reviews:88,  emoji:'📦', tag:'',           tagType:'',      desc:'Hand-carved jewellery box with velvet lining.', img:'' },
+  { id:11, name:'Bamboo Storage Basket (Set 3)', cat:'decor',    price:999,  mrp:1599, rating:4.3, reviews:156, emoji:'🧺', tag:'Eco',        tagType:'green', desc:'Assam ke bamboo se bane 3 nesting baskets.', img:'' },
+  { id:12, name:'Dhokra Brass Art Showpiece',    cat:'decor',    price:2199, mrp:3499, rating:4.8, reviews:72,  emoji:'🗿', tag:'Limited',    tagType:'dark',  desc:'4000 saal purani lost-wax casting technique.', img:'' },
+  { id:13, name:'Brass Diya Set (Pack of 6)',    cat:'decor',    price:649,  mrp:1099, rating:4.5, reviews:398, emoji:'🪔', tag:'Bestseller', tagType:'',      desc:'Traditional brass diyas for Diwali.', img:'' },
+  { id:14, name:'Handmade Jute Tote Bag',        cat:'textiles', price:599,  mrp:999,  rating:4.2, reviews:267, emoji:'👜', tag:'Eco',        tagType:'green', desc:'Natural jute se bana spacious tote bag.', img:'' },
+  { id:15, name:'Rajasthani Puppet Pair',        cat:'decor',    price:799,  mrp:1299, rating:4.4, reviews:121, emoji:'🎎', tag:'',           tagType:'',      desc:'Traditional kathputli puppets.', img:'' },
+  { id:16, name:'Copper Water Bottle (1 Litre)', cat:'decor',    price:1199, mrp:1899, rating:4.7, reviews:189, emoji:'🍶', tag:'',           tagType:'',      desc:'Pure copper bottle for Ayurvedic benefits.', img:'' },
+  { id:17, name:'Kalamkari Handpainted Dupatta', cat:'textiles', price:1399, mrp:2199, rating:4.6, reviews:143, emoji:'🧣', tag:'',           tagType:'',      desc:'Andhra ki Kalamkari art, natural dyes.', img:'' },
+  { id:18, name:'Pashmina Blend Shawl',          cat:'textiles', price:2499, mrp:3999, rating:4.8, reviews:176, emoji:'🧥', tag:'Premium',    tagType:'dark',  desc:'Kashmir ka warm pashmina blend shawl.', img:'' },
+  { id:19, name:'Coconut Shell Serving Bowl',    cat:'decor',    price:549,  mrp:899,  rating:4.1, reviews:84,  emoji:'🥥', tag:'Eco',        tagType:'green', desc:'Kerala ke coconut shell se bana bowl.', img:'' },
+  { id:20, name:'Kutch Mirror Work Cushion',     cat:'decor',    price:699,  mrp:1199, rating:4.4, reviews:198, emoji:'🛋️', tag:'',           tagType:'',      desc:'Gujarat ke Kutch region ka mirror work.', img:'' }
+];
+
+/* ================= STATE ================= */
+const LS = { cart:'kk_cart', wish:'kk_wish', prods:'kk_prods', cats:'kk_cats', theme:'kk_theme', pass:'kk_pass', upi:'kk_upi', orders:'kk_orders' };
+const load = (k, fb) => { try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; }catch(e){ return fb; } };
+const save = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+
+const state = {
+  products: load(LS.prods, null) || DEFAULT_PRODUCTS,
+  cats:     load(LS.cats,  null) || DEFAULT_CATS,
+  cart:     load(LS.cart,  []),
+  wish:     load(LS.wish,  []),
+  orders:   load(LS.orders, []),
+  adminPass: load(LS.pass, 'kalakart123'),
+  upi:      load(LS.upi, 'Akashvermaair1@ybl'),
+  filter:   { cat:'all', search:'' }
+};
+
+if (!load(LS.prods, null)) save(LS.prods, DEFAULT_PRODUCTS);
+if (!load(LS.cats,  null)) save(LS.cats,  DEFAULT_CATS);
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const inr = n => '₹' + Number(n).toLocaleString('en-IN');
+const findP = id => state.products.find(p => p.id === id);
+const findC = id => state.cats.find(c => c.id === id) || { name:'Other', emoji:'🎁', g1:'#e5e7eb', g2:'#9ca3af' };
+const gradOf = c => `linear-gradient(150deg,${c.g1},${c.g2})`;
+const discOf = p => Math.round((1 - p.price / p.mrp) * 100);
+
+function toast(msg, type=''){
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.innerHTML = `<span>${type==='err'?'⚠️':type==='warn'?'ℹ️':'✅'}</span><span>${msg}</span>`;
+  $('#toasts').appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transform='translateX(-120%)'; el.style.transition='.3s'; setTimeout(()=>el.remove(),300); }, 2600);
+}
+function goTop(e){ if(e) e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); }
+function scrollToShop(){ window.scrollTo({ top: $('#shop').offsetTop - 110, behavior:'smooth' }); }
+
+/* ================= CATEGORIES ================= */
+function renderCats(){
+  const nav = $('#catNav');
+  let html = `<button class="chip ${state.filter.cat==='all'?'active':''}" data-cat="all">✨ Sab Kuch</button>`;
+  state.cats.forEach(c => {
+    html += `<button class="chip ${state.filter.cat===c.id?'active':''}" data-cat="${c.id}">${c.emoji} ${c.name}</button>`;
+  });
+  nav.innerHTML = html;
+  nav.querySelectorAll('.chip').forEach(ch => ch.onclick = () => {
+    state.filter.cat = ch.dataset.cat;
+    renderCats(); render();
+    scrollToShop();
+  });
+}
+
+/* ================= PRODUCTS ================= */
+function getList(){
+  return state.products.filter(p => {
+    if (state.filter.cat !== 'all' && p.cat !== state.filter.cat) return false;
+    if (state.filter.search){
+      const q = state.filter.search.toLowerCase();
+      const c = findC(p.cat);
+      if (!(p.name + ' ' + c.name + ' ' + p.desc).toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function render(){
+  const list = getList();
+  const grid = $('#grid');
+  if (!list.length){
+    grid.innerHTML = `<div class="empty"><div class="big">🔍</div><h3>Kuch nahi mila</h3><p>Filters change karke dekhiye.</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map((p, i) => {
+    const c = findC(p.cat);
+    const inWish = state.wish.includes(p.id);
+    const inCart = state.cart.some(x => x.id === p.id);
+    const mediaBg = p.img ? '' : `background:${gradOf(c)}`;
+    const mediaImg = p.img ? `<img src="${p.img}" alt="">` : `<span class="em">${p.emoji || c.emoji}</span>`;
+    return `<article class="card" style="animation-delay:${Math.min(i*40,500)}ms">
+      <div class="card-media" style="${mediaBg}" onclick="openProduct(${p.id})">
+        ${p.tag ? `<span class="tagpill ${p.tagType||''}">${p.tag}</span>` : ''}
+        ${mediaImg}
+        <button class="wish-btn ${inWish?'on':''}" onclick="event.stopPropagation();toggleWish(${p.id})">${inWish?'❤️':'🤍'}</button>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">${c.name}</span>
+        <h3 class="card-title">${p.name}</h3>
+        <div class="stars"><span class="s">★★★★★</span> ${p.rating} <span>(${p.reviews})</span></div>
+        <div class="price-row">
+          <span class="price">${inr(p.price)}</span>
+          <span class="mrp">${inr(p.mrp)}</span>
+          <span class="off">${discOf(p)}% off</span>
+        </div>
+        <button class="btn-add ${inCart?'in':''}" onclick="addToCart(${p.id})">
+          ${inCart?'✓ Cart me hai':'🛒 Add to Cart'}
+        </button>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+/* ================= WISHLIST ================= */
+function toggleWish(id){
+  const i = state.wish.indexOf(id);
+  if (i > -1){ state.wish.splice(i,1); toast('Wishlist se hata diya'); }
+  else { state.wish.push(id); toast('Wishlist me add ❤️'); }
+  save(LS.wish, state.wish);
+  updateBadges(); render();
+  if ($('#wishDrawer').classList.contains('show')) renderWishDrawer();
+}
+
+/* ================= CART ================= */
+function addToCart(id, qty=1, silent=false){
+  const it = state.cart.find(c => c.id === id);
+  if (it) it.qty += qty;
+  else state.cart.push({ id, qty });
+  save(LS.cart, state.cart);
+  updateBadges(); render(); renderCart();
+  if (!silent) toast(`${findP(id).name} cart me add 🛒`);
+}
+
+function setQty(id, q){
+  const it = state.cart.find(c => c.id === id);
+  if (!it) return;
+  if (q <= 0) state.cart = state.cart.filter(c => c.id !== id);
+  else it.qty = q;
+  save(LS.cart, state.cart);
+  updateBadges(); render(); renderCart();
+}
+
+function removeFromCart(id){
+  state.cart = state.cart.filter(c => c.id !== id);
+  save(LS.cart, state.cart);
+  updateBadges(); render(); renderCart();
+  toast('Item hata diya');
+}
+
+function cartTotals(){
+  let sub = 0;
+  state.cart.forEach(c => { const p = findP(c.id); if (p) sub += p.price * c.qty; });
+  const ship = (sub >= 999 || sub === 0) ? 0 : 79;
+  return { sub, ship, total: sub + ship };
+}
+/* YAHAN TAK HISSA 3 */
+  /* ================= CART RENDER ================= */
+function renderCart(){
+  const body = $('#cartBody'), foot = $('#cartFoot');
+  const count = state.cart.reduce((s,c) => s + c.qty, 0);
+  $('#cartCount').textContent = `(${count})`;
+
+  if (!state.cart.length){
+    body.innerHTML = `<div class="empty" style="padding:50px 10px">
+      <div class="big">🛒</div><h3>Cart khaali hai</h3>
+      <p style="margin:14px 0 20px">Kuch handmade gems add karo!</p>
+      <button class="btn btn-primary" onclick="closeDrawer();scrollToShop()">Shopping Karo</button>
+    </div>`;
+    foot.style.display = 'none';
+    return;
+  }
+
+  body.innerHTML = state.cart.map((c, i) => {
+    const p = findP(c.id); if (!p) return '';
+    const cat = findC(p.cat);
+    const img = p.img ? `<img src="${p.img}">` : cat.emoji;
+    const bg = p.img ? '' : `background:${gradOf(cat)}`;
+    return `<div class="cart-item" style="animation-delay:${i*50}ms">
+      <div class="ci-img" style="${bg}" onclick="closeDrawer();openProduct(${p.id})">${img}</div>
+      <div class="ci-info">
+        <h5>${p.name}</h5>
+        <div class="ci-price">${inr(p.price * c.qty)}</div>
+        <div class="qty">
+          <button onclick="setQty(${p.id},${c.qty-1})">−</button>
+          <span>${c.qty}</span>
+          <button onclick="setQty(${p.id},${c.qty+1})">+</button>
+        </div>
+        <button class="ci-remove" onclick="removeFromCart(${p.id})">🗑️ Remove</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const t = cartTotals();
+  $('#sumSub').textContent = inr(t.sub);
+  $('#sumShip').innerHTML = t.ship === 0 ? '<span class="free">FREE</span>' : inr(t.ship);
+  $('#sumTotal').textContent = inr(t.total);
+
+  const need = 999 - t.sub;
+  if (need > 0){
+    $('#shipMsg').innerHTML = `Aur <b>${inr(need)}</b> ka shopping karo FREE shipping ke liye! 🚚`;
+    $('#shipFill').style.width = Math.min(100, (t.sub/999)*100) + '%';
+  } else {
+    $('#shipMsg').innerHTML = `🎉 FREE Shipping mil gayi!`;
+    $('#shipFill').style.width = '100%';
+  }
+  foot.style.display = 'block';
+}
+
+/* ================= WISHLIST DRAWER ================= */
+function renderWishDrawer(){
+  const body = $('#wishBody');
+  const count = state.wish.length;
+  $('#wishCount').textContent = `(${count})`;
+
+  if (!count){
+    body.innerHTML = `<div class="empty" style="padding:50px 10px">
+      <div class="big">❤️</div><h3>Wishlist khaali hai</h3>
+      <p style="margin:14px 0 20px">Jo pasand aaye, dil dabao!</p>
+      <button class="btn btn-primary" onclick="closeWishDrawer();scrollToShop()">Shopping Karo</button>
+    </div>`;
+    return;
+  }
+
+  body.innerHTML = state.wish.map((id, i) => {
+    const p = findP(id); if (!p) return '';
+    const c = findC(p.cat);
+    const img = p.img ? `<img src="${p.img}">` : c.emoji;
+    const bg = p.img ? '' : `background:${gradOf(c)}`;
+    const inCart = state.cart.some(x => x.id === p.id);
+    return `<div class="cart-item" style="animation-delay:${i*50}ms">
+      <div class="ci-img" style="${bg}" onclick="closeWishDrawer();openProduct(${p.id})">${img}</div>
+      <div class="ci-info">
+        <h5>${p.name}</h5>
+        <div class="ci-price">${inr(p.price)}</div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+          <button class="btn ${inCart?'btn-ghost':'btn-primary'} btn-sm" onclick="addToCart(${p.id});renderWishDrawer()">
+            ${inCart?'✓ In Cart':'🛒 Add'}
+          </button>
+          <button class="btn btn-ghost btn-sm" onclick="toggleWish(${p.id})">🗑️</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ================= DRAWERS ================= */
+function openDrawer(){
+  closeWishDrawer();
+  renderCart();
+  $('#cart').classList.add('show');
+  $('#overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer(){
+  $('#cart').classList.remove('show');
+  if (!$('#wishDrawer').classList.contains('show')) {
+    $('#overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+function openWishDrawer(){
+  closeDrawer();
+  renderWishDrawer();
+  $('#wishDrawer').classList.add('show');
+  $('#overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeWishDrawer(){
+  $('#wishDrawer').classList.remove('show');
+  if (!$('#cart').classList.contains('show')) {
+    $('#overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ================= MODALS ================= */
+function closeModals(){
+  $$('.modal').forEach(m => m.classList.remove('show'));
+  if (!$('#cart').classList.contains('show') && !$('#wishDrawer').classList.contains('show')){
+    $('#overlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+function openModal(id){
+  closeModals();
+  $(id).classList.add('show');
+  $('#overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+/* ================= PRODUCT DETAIL ================= */
+function openProduct(id){
+  const p = findP(id); if (!p) return;
+  const c = findC(p.cat);
+  const inWish = state.wish.includes(p.id);
+  const mediaBg = p.img ? '' : `background:${gradOf(c)}`;
+  const mediaImg = p.img ? `<img src="${p.img}">` : `<span style="position:relative;z-index:2">${p.emoji||c.emoji}</span>`;
+  $('#pmContent').innerHTML = `
+    <div class="pm-grid">
+      <div class="pm-media" style="${mediaBg}">${mediaImg}</div>
+      <div class="pm-info">
+        <span class="card-cat">${c.name}</span>
+        <h2>${p.name}</h2>
+        <div class="stars"><span class="s">★★★★★</span> ${p.rating} • ${p.reviews} reviews</div>
+        <div class="pm-price">
+          <span class="price">${inr(p.price)}</span>
+          <span class="mrp">${inr(p.mrp)}</span>
+          <span class="off">${discOf(p)}% OFF</span>
+        </div>
+        <p class="pm-desc">${p.desc}</p>
+        <div class="pm-actions">
+          <button class="btn btn-primary" onclick="addToCart(${p.id});closeModals();openDrawer()">🛒 Add to Cart</button>
+          <button class="btn btn-ghost" onclick="addToCart(${p.id},1,true);closeModals();openCheckout()">⚡ Buy Now</button>
+          <button class="btn btn-ghost" style="flex:0 0 auto;min-width:auto;padding:12px 16px" onclick="toggleWish(${p.id});openProduct(${p.id})">${inWish?'❤️':'🤍'}</button>
+        </div>
+        <div class="pm-feats">
+          <div>🚚 Free shipping ₹999+</div>
+          <div>↩️ 7-din return</div>
+          <div>🇮🇳 Handmade</div>
+        </div>
+      </div>
+    </div>`;
+  openModal('#productModal');
+}
+
+/* ================= CHECKOUT ================= */
+function openCheckout(){
+  if (!state.cart.length) return toast('Cart khaali hai!', 'warn');
+  const t = cartTotals();
+  $('#checkoutContent').innerHTML = `
+    <div class="form-pad">
+      <h2>Checkout 🧾</h2>
+      <p class="sub">Delivery details bharo</p>
+      <div class="order-sum">
+        <h4>Order Summary</h4>
+        ${state.cart.map(c => { const p = findP(c.id); return `<div class="sum-row"><span>${p.name} × ${c.qty}</span><span>${inr(p.price*c.qty)}</span></div>`; }).join('')}
+        <div class="sum-row"><span>Shipping</span><span>${t.ship===0?'<span class="free">FREE</span>':inr(t.ship)}</span></div>
+        <div class="sum-row total"><span>Total</span><b>${inr(t.total)}</b></div>
+      </div>
+      <form id="orderForm">
+        <div class="frow">
+          <div class="field"><label>Naam *</label><input required name="name" placeholder="Aapka naam"></div>
+          <div class="field"><label>Mobile *</label><input required name="phone" type="tel" pattern="[0-9]{10}" placeholder="10 digit"></div>
+        </div>
+        <div class="field"><label>Email </label><input required name="email" type="email" placeholder="aapka@email.com"></div>
+        <div class="field"><label>Poora Address *</label><textarea required name="address" rows="3" placeholder="House no, street, area"></textarea></div>
+        <div class="frow">
+          <div class="field"><label>City *</label><input required name="city" placeholder="Shehar"></div>
+          <div class="field"><label>PIN *</label><input required name="pin" pattern="[0-9]{6}" placeholder="6 digit"></div>
+        </div>
+        <div class="field"><label>State *</label>
+          <select required name="state">
+            <option value="">Chuniye…</option>
+            ${['Andhra Pradesh','Assam','Bihar','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Odisha','Punjab','Rajasthan','Tamil Nadu','Telangana','Uttar Pradesh','Uttarakhand','West Bengal'].map(s=>`<option>${s}</option>`).join('')}
+          </select>
+        </div>
+        <h4 style="font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 10px">Payment Method</h4>
+        <div class="pay-opts">
+          <label class="pay-opt sel"><input type="radio" name="pay" value="UPI" checked><span class="po-ico">📱</span><div><strong>UPI / GPay / PhonePe</strong><span>Instant & secure</span></div></label>
+          <label class="pay-opt"><input type="radio" name="pay" value="COD"><span class="po-ico">💵</span><div><strong>Cash on Delivery</strong><span>₹20 extra</span></div></label>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit" style="padding:14px">🎁 Place Order — ${inr(t.total)}</button>
+      </form>
+    </div>`;
+
+  $$('#checkoutContent .pay-opt').forEach(o => {
+    o.onclick = () => {
+      $$('#checkoutContent .pay-opt').forEach(x => x.classList.remove('sel'));
+      o.classList.add('sel');
+      o.querySelector('input').checked = true;
+    };
+  });
+
+  $('#orderForm').onsubmit = e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    if (data.pay === 'UPI') showUPI(data);
+    else placeOrder(data, false);
+  };
+  openModal('#checkoutModal');
+}
+
+function showUPI(data){
+  const t = cartTotals();
+  const upiUrl = `upi://pay?pa=${state.upi}&pn=Kalakart&am=${t.total}&cu=INR`;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiUrl)}`;
+  window._orderData = data;
+  $('#checkoutContent').innerHTML = `
+    <div class="form-pad">
+      <h2 style="text-align:center">UPI se Payment 📱</h2>
+      <p class="sub" style="text-align:center">QR scan karo ya UPI ID copy karo</p>
+      <div class="upi-box">
+        <div class="upi-qr"><img src="${qrUrl}" alt="UPI QR"></div>
+        <div class="upi-id" onclick="copyUPI()">📋 ${state.upi}</div>
+        <div style="font-weight:700;font-size:1.3rem;color:var(--primary);margin:10px 0">${inr(t.total)}</div>
+        <a href="${upiUrl}" class="btn btn-primary" style="margin-top:8px">📱 UPI App me Kholo</a>
+        <p class="upi-note">Payment ke baad "Confirm" dabao. Order ID SMS/Email par milega.</p>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:8px">
+        <button class="btn btn-ghost" style="flex:1" onclick="openCheckout()">← Back</button>
+        <button class="btn btn-primary" style="flex:2" onclick="confirmUPIOrder()">✅ Payment Confirm</button>
+      </div>
+    </div>`;
+}
+
+function confirmUPIOrder(){ placeOrder(window._orderData, true); }
+
+function copyUPI(){
+  navigator.clipboard.writeText(state.upi);
+  toast('UPI ID copy ho gayi 📋');
+}
+
+function placeOrder(data, paid){
+  const t = cartTotals();
+  const oid = 'KK' + Date.now().toString().slice(-8);
+  const cod = data.pay === 'COD' ? 20 : 0;
+  const finalTotal = t.total + cod;
+
+  state.orders.unshift({
+    id: oid, date: new Date().toISOString(),
+    customer: data, items: [...state.cart], total: finalTotal, paid
+  });
+  save(LS.orders, state.orders);
+
+  $('#checkoutContent').innerHTML = `
+    <div class="success">
+      <div class="tick">✓</div>
+      <h2>Order Confirm! 🎉</h2>
+      <p>Shukriya <b>${data.name}</b>! Aapka order place ho gaya.</p>
+      <div class="oid">Order ID: ${oid}</div>
+      <div class="order-sum" style="text-align:left;max-width:380px;margin:0 auto 20px">
+        <div class="sum-row"><span>Items</span><span>${state.cart.length} product</span></div>
+        <div class="sum-row"><span>Payment</span><span>${data.pay}${cod?' (+₹20)':''}</span></div>
+        <div class="sum-row total"><span>Total</span><b>${inr(finalTotal)}</b></div>
+      </div>
+      <p style="font-size:.78rem">📦 3–5 din me delivery. Confirmation SMS/Email bhej diya gaya.</p>
+      <button class="btn btn-primary" style="margin-top:20px" onclick="closeModals();window.scrollTo({top:0,behavior:'smooth'})">Continue Shopping →</button>
+    </div>`;
+
+  state.cart = [];
+  save(LS.cart, []);
+  updateBadges(); render(); renderCart();
+}
+/* YAHAN TAK HISSA 4 */
+  /* ================= ADMIN ================= */
+function openAdmin(){
+  const logged = sessionStorage.getItem('kk_admin') === '1';
+  if (logged) showAdminPanel();
+  else showAdminLogin();
+}
+
+function showAdminLogin(){
+  $('#adminContent').innerHTML = `
+    <div class="form-pad" style="max-width:400px;margin:0 auto">
+      <h2 style="text-align:center">⚙️ Admin Login</h2>
+      <p class="sub" style="text-align:center">Password daalo</p>
+      <form id="adminLoginForm">
+        <div class="field">
+          <label>Password</label>
+          <input type="password" required id="adminPassInput" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Login Karo</button>
+      </form>
+    </div>`;
+  $('#adminLoginForm').onsubmit = e => {
+    e.preventDefault();
+    const p = $('#adminPassInput').value;
+    if (p === state.adminPass){
+      sessionStorage.setItem('kk_admin', '1');
+      toast('Welcome Admin! 🎉');
+      showAdminPanel();
+    } else toast('Galat password!', 'err');
+  };
+  openModal('#adminModal');
+}
+
+function showAdminPanel(){
+  $('#adminContent').innerHTML = `
+    <div class="form-pad">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h2 style="font-size:1.3rem">⚙️ Admin Panel</h2>
+        <button class="btn btn-ghost btn-sm" onclick="adminLogout()">Logout</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="active" data-tab="products">📦 Products</button>
+        <button data-tab="add">➕ Add New</button>
+        <button data-tab="cats">🗂️ Categories</button>
+        <button data-tab="orders">🧾 Orders</button>
+        <button data-tab="settings">⚙️ Settings</button>
+      </div>
+      <div class="admin-pane active" id="pane-products"></div>
+      <div class="admin-pane" id="pane-add"></div>
+      <div class="admin-pane" id="pane-cats"></div>
+      <div class="admin-pane" id="pane-orders"></div>
+      <div class="admin-pane" id="pane-settings"></div>
+    </div>`;
+
+  $$('#adminContent .admin-tabs button').forEach(b => {
+    b.onclick = () => {
+      $$('#adminContent .admin-tabs button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      $$('#adminContent .admin-pane').forEach(p => p.classList.remove('active'));
+      $('#pane-' + b.dataset.tab).classList.add('active');
+      if (b.dataset.tab === 'products') renderAdminProducts();
+      if (b.dataset.tab === 'add') renderAdminAdd();
+      if (b.dataset.tab === 'cats') renderAdminCats();
+      if (b.dataset.tab === 'orders') renderAdminOrders();
+      if (b.dataset.tab === 'settings') renderAdminSettings();
+    };
+  });
+
+  renderAdminProducts();
+  openModal('#adminModal');
+}
+
+function adminLogout(){
+  sessionStorage.removeItem('kk_admin');
+  closeModals();
+  toast('Logout ho gaya');
+}
+
+function renderAdminProducts(){
+  const el = $('#pane-products');
+  if (!state.products.length){
+    el.innerHTML = `<p style="text-align:center;color:var(--muted);padding:20px">Koi product nahi. "Add New" se add karo.</p>`;
+    return;
+  }
+  el.innerHTML = `<div class="a-list">${state.products.map((p, i) => {
+    const c = findC(p.cat);
+    const img = p.img ? `<img src="${p.img}">` : c.emoji;
+    const bg = p.img ? '' : `background:${gradOf(c)}`;
+    return `<div class="a-item" style="animation-delay:${Math.min(i*30,400)}ms">
+      <div class="a-img" style="${bg}">${img}</div>
+      <div class="a-info">
+        <strong>${p.name}</strong>
+        <span>${c.name} • ${inr(p.price)}</span>
+      </div>
+      <div class="a-actions">
+        <button onclick="adminEditProduct(${p.id})">✏️</button>
+        <button class="del" onclick="adminDeleteProduct(${p.id})">🗑️</button>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function adminDeleteProduct(id){
+  if (!confirm('Ye product delete karna hai?')) return;
+  state.products = state.products.filter(p => p.id !== id);
+  save(LS.prods, state.products);
+  toast('Product delete ho gaya');
+  renderAdminProducts(); render(); renderCats();
+}
+
+function adminEditProduct(id){
+  const p = findP(id); if (!p) return;
+  $$('#adminContent .admin-tabs button').forEach(x => x.classList.remove('active'));
+  $('#adminContent .admin-tabs button[data-tab="add"]').classList.add('active');
+  $$('#adminContent .admin-pane').forEach(x => x.classList.remove('active'));
+  $('#pane-add').classList.add('active');
+  renderAdminAdd(p);
+}
+
+function renderAdminAdd(editP){
+  const p = editP || { id:null, name:'', cat:state.cats[0].id, price:'', mrp:'', emoji:'🏺', tag:'', tagType:'', desc:'', img:'' };
+  $('#pane-add').innerHTML = `
+    <form id="prodForm">
+      <div class="field"><label>Product Name *</label><input required name="name" value="${p.name}" placeholder="Jaise: Terracotta Vase"></div>
+      <div class="frow">
+        <div class="field"><label>Category *</label>
+          <select required name="cat">
+            ${state.cats.map(c => `<option value="${c.id}" ${c.id===p.cat?'selected':''}>${c.emoji} ${c.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field"><label>Emoji</label><input name="emoji" value="${p.emoji}" placeholder="🏺"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>Selling Price ₹ *</label><input required name="price" type="number" value="${p.price}" placeholder="899"></div>
+        <div class="field"><label>MRP ₹ *</label><input required name="mrp" type="number" value="${p.mrp}" placeholder="1499"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>Tag</label><input name="tag" value="${p.tag}" placeholder="Bestseller"></div>
+        <div class="field"><label>Tag Color</label>
+          <select name="tagType">
+            <option value="">Default</option>
+            <option value="green" ${p.tagType==='green'?'selected':''}>Green</option>
+            <option value="dark" ${p.tagType==='dark'?'selected':''}>Dark</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Description *</label>
+        <textarea required name="desc" rows="4" placeholder="Product ka detail likho…">${p.desc}</textarea>
+        <button type="button" class="ai-btn" id="aiGenBtn">🤖 AI se Description Likho</button>
+      </div>
+      <div class="field">
+        <label>Product Image (optional)</label>
+        <label class="img-upload">
+          <input type="file" accept="image/*" id="imgInput">
+          <div class="img-preview" id="imgPrev">${p.img?`<img src="${p.img}">`:'📷'}</div>
+          <div><strong style="font-size:.83rem">Photo chuno</strong><div class="hint">Gallery se</div></div>
+        </label>
+        <input type="hidden" name="img" id="imgData" value="${p.img}">
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">${editP?'💾 Update Karo':'➕ Product Add Karo'}</button>
+      ${editP?`<button type="button" class="btn btn-ghost btn-block" style="margin-top:8px" onclick="renderAdminAdd()">Cancel Edit</button>`:''}
+    </form>`;
+
+  $('#imgInput').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      $('#imgPrev').innerHTML = `<img src="${ev.target.result}">`;
+      $('#imgData').value = ev.target.result;
+    };
+    r.readAsDataURL(f);
+  };
+
+  $('#aiGenBtn').onclick = async () => {
+    const name = $('#prodForm [name="name"]').value.trim();
+    const cat = $('#prodForm [name="cat"]').value;
+    const catName = findC(cat).name;
+    if (!name) return toast('Pehle naam likho', 'warn');
+    const btn = $('#aiGenBtn');
+    btn.disabled = true;
+    btn.textContent = '🤖 AI likh raha hai…';
+    try {
+      const res = await fetch('/.netlify/functions/groq', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ name, category: catName })
+      });
+      if (!res.ok) throw new Error('AI fail');
+      const j = await res.json();
+      if (j.text){
+        $('#prodForm [name="desc"]').value = j.text;
+        toast('AI ne description likh diya ✨');
+      } else throw new Error('No text');
+    } catch(err){
+      toast('AI offline. Netlify pe deploy karo.', 'err');
+    }
+    btn.disabled = false;
+    btn.textContent = '🤖 AI se Description Likho';
+  };
+
+  $('#prodForm').onsubmit = e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
+    const newP = {
+      id: editP ? editP.id : Date.now(),
+      name: data.name,
+      cat: data.cat,
+      price: +data.price,
+      mrp: +data.mrp,
+      rating: editP ? editP.rating : 4.5,
+      reviews: editP ? editP.reviews : 0,
+      emoji: data.emoji || '🎁',
+      tag: data.tag,
+      tagType: data.tagType,
+      desc: data.desc,
+      img: data.img
+    };
+    if (editP){
+      const i = state.products.findIndex(x => x.id === editP.id);
+      state.products[i] = newP;
+      toast('Product update ho gaya ✅');
+    } else {
+      state.products.unshift(newP);
+      toast('Naya product add ho gaya 🎉');
+    }
+    save(LS.prods, state.products);
+    renderAdminProducts(); render(); renderCats();
+    $$('#adminContent .admin-tabs button').forEach(x => x.classList.remove('active'));
+    $('#adminContent .admin-tabs button[data-tab="products"]').classList.add('active');
+    $$('#adminContent .admin-pane').forEach(x => x.classList.remove('active'));
+    $('#pane-products').classList.add('active');
+  };
+}
+
+function renderAdminCats(){
+  $('#pane-cats').innerHTML = `
+    <form id="catForm" style="display:flex;gap:8px;margin-bottom:18px">
+      <input required name="name" placeholder="Nayi category" style="flex:1;padding:10px 14px;border-radius:11px;border:1.5px solid var(--border);background:var(--surface-2);outline:none">
+      <input name="emoji" placeholder="🎨" maxlength="2" style="width:60px;padding:10px;text-align:center;border-radius:11px;border:1.5px solid var(--border);background:var(--surface-2);outline:none">
+      <button class="btn btn-primary btn-sm" type="submit">Add</button>
+    </form>
+    <div class="cat-list">
+      ${state.cats.map((c, i) => `<div class="cat-pill" style="animation-delay:${i*40}ms">${c.emoji} ${c.name} <button onclick="adminDeleteCat('${c.id}')">✕</button></div>`).join('')}
+    </div>`;
+
+  $('#catForm').onsubmit = e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const name = fd.get('name').trim();
+    const emoji = fd.get('emoji').trim() || '🎨';
+    const id = name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+    if (state.cats.some(c => c.id === id)) return toast('Already hai', 'warn');
+    const colors = [['#fde68a','#f59e0b'],['#fecdd3','#f43f5e'],['#e9d5ff','#a855f7'],['#fed7aa','#c2410c'],['#bfdbfe','#3b82f6'],['#bbf7d0','#16a34a'],['#c7d2fe','#6366f1'],['#fbcfe8','#ec4899']];
+    const cc = colors[state.cats.length % colors.length];
+    state.cats.push({ id, name, emoji, g1:cc[0], g2:cc[1] });
+    save(LS.cats, state.cats);
+    toast('Category add ho gayi');
+    renderAdminCats(); renderCats();
+  };
+}
+
+function adminDeleteCat(id){
+  if (!confirm('Category delete karein?')) return;
+  state.cats = state.cats.filter(c => c.id !== id);
+  save(LS.cats, state.cats);
+  toast('Delete ho gayi');
+  renderAdminCats(); renderCats(); render();
+}
+
+function renderAdminOrders(){
+  const el = $('#pane-orders');
+  if (!state.orders.length){
+    el.innerHTML = `<p style="text-align:center;color:var(--muted);padding:20px">Abhi koi order nahi aaya.</p>`;
+    return;
+  }
+  el.innerHTML = `<div class="a-list">${state.orders.map((o, i) => `
+    <div class="a-item" style="flex-direction:column;align-items:flex-start;gap:6px;animation-delay:${i*40}ms">
+      <div style="display:flex;justify-content:space-between;width:100%">
+        <strong>${o.id}</strong>
+        <span style="font-weight:700;color:var(--primary)">${inr(o.total)}</span>
+      </div>
+      <span>👤 ${o.customer.name} • 📞 ${o.customer.phone}</span>
+      <span>📍 ${o.customer.city}, ${o.customer.pin}</span>
+      <span>💳 ${o.customer.pay} ${o.paid?'✅ Paid':'⏳ Pending'}</span>
+      <span style="font-size:.7rem">${new Date(o.date).toLocaleString('en-IN')}</span>
+    </div>`).join('')}</div>`;
+}
+
+function renderAdminSettings(){
+  $('#pane-settings').innerHTML = `
+    <div class="field"><label>UPI ID</label>
+      <input id="setUpi" value="${state.upi}">
+      <div class="hint">Jaise: naam@ybl</div>
+    </div>
+    <div class="field"><label>Admin Password</label>
+      <input id="setPass" value="${state.adminPass}">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="saveSettings()">💾 Save Karo</button>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+      <button class="btn btn-ghost btn-block" onclick="resetAll()" style="color:var(--red)">🗑️ Sab Data Reset</button>
+    </div>`;
+}
+
+function saveSettings(){
+  state.upi = $('#setUpi').value.trim() || 'Akashvermaair1@ybl';
+  state.adminPass = $('#setPass').value.trim() || 'kalakart123';
+  save(LS.upi, state.upi); save(LS.pass, state.adminPass);
+  toast('Settings save ho gayi ✅');
+}
+
+function resetAll(){
+  if (!confirm('Sab kuch reset karna hai?')) return;
+  localStorage.clear();
+  sessionStorage.clear();
+  location.reload();
+}
+/* YAHAN TAK HISSA 5 */
+  /* ================= BADGES ================= */
+function updateBadges(){
+  const c = state.cart.reduce((s,x) => s + x.qty, 0);
+  const cb = $('#cartBadge'), wb = $('#wishBadge');
+  const oldC = +cb.dataset.n, oldW = +wb.dataset.n;
+  cb.textContent = c; cb.dataset.n = c;
+  wb.textContent = state.wish.length; wb.dataset.n = state.wish.length;
+  if (c > oldC){ cb.classList.add('bump'); setTimeout(()=>cb.classList.remove('bump'),600); }
+  if (state.wish.length > oldW){ wb.classList.add('bump'); setTimeout(()=>wb.classList.remove('bump'),600); }
+}
+
+/* ================= EVENTS ================= */
+$('#cartBtn').onclick = openDrawer;
+$('#wishBtn').onclick = openWishDrawer;
+$('#checkoutBtn').onclick = () => { closeDrawer(); openCheckout(); };
+$('#themeBtn').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  $('#themeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+  save(LS.theme, next);
+};
+$('#overlay').onclick = () => { closeDrawer(); closeWishDrawer(); closeModals(); };
+$('#searchInput').oninput = e => {
+  state.filter.search = e.target.value.trim();
+  render();
+};
+
+window.addEventListener('scroll', () => {
+  const h = $('#header');
+  if (h) h.classList.toggle('scrolled', window.scrollY > 10);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ closeDrawer(); closeWishDrawer(); closeModals(); }
+});
+
+/* ================= SECRET ADMIN URL ================= */
+function checkAdminUrl(){
+  if (window.location.hash === '#admin'){
+    openAdmin();
+  }
+}
+window.addEventListener('hashchange', checkAdminUrl);
+
+/* ================= INIT ================= */
+(function init(){
+  const theme = load(LS.theme, 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+  $('#themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
+  renderCats();
+  render();
+  renderCart();
+  updateBadges();
+  checkAdminUrl();
+})();
+</script>
+</body>
+</html>
