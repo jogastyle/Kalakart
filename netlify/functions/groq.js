@@ -1,0 +1,35 @@
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+  try {
+    const { name, category } = JSON.parse(event.body);
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      return { statusCode: 500, body: JSON.stringify({ error: 'GROQ_API_KEY not set' }) };
+    }
+    const prompt = `Ek Indian handicraft product ke liye 2-3 line ka attractive Hindi description likho. Product: "${name}", Category: "${category}". Sirf description likho, koi heading ya extra text nahi.`;
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+        max_tokens: 200
+      })
+    });
+    const data = await res.json();
+    const text = data.choices?.[0]?.message?.content?.trim() || '';
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    };
+  } catch (err) {
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+  }
+};
